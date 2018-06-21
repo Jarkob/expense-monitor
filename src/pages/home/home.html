@@ -16,8 +16,12 @@
         <ion-note item-end>{{ transaction.value | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button (click)="edit(transaction)">Edit</button>
-          <button ion-button color="danger" (click)="delete(transaction)">Delete</button>
+          <button ion-button icon-only (click)="edit(transaction)">
+              <ion-icon name="build"></ion-icon>
+          </button>
+          <button ion-button icon-only color="danger" (click)="delete(transaction)">
+            <ion-icon name="close-circle"></ion-icon>
+          </button>
         </ion-item-options>
     </ion-item-sliding>
     <ion-item>
@@ -36,5 +40,7 @@
       <ion-input type="text" name="description" required [(ngModel)]="description"></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button (click)="createTransaction()">New transaction</button>
+  <button class="new-transaction" ion-button icon-only large (click)="createTransaction()">
+      <ion-icon name="add-circle"></ion-icon>
+  </button>
 </ion-content>

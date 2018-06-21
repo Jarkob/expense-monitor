@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { AlertController } from 'ionic-angular';
 
 @Component({
-    selector: 'settings-page',
+    selector: 'page-settings',
     templateUrl: 'settings.html'
 })
 export class SettingsPage {

@@ -22,11 +22,24 @@ export class HomePage {
    * @param storage for storing transactions
    */
   constructor(public navCtrl: NavController, private storage: Storage) {
-    storage.get('transactions').then(
+    // works somehow
+    this.navCtrl.viewDidEnter.subscribe(
+      (val) => {
+        this.getTransactions();
+      }
+    );
+  }
+
+  /**
+   * get transactions
+   */
+  getTransactions(): void {
+    this.storage.get('transactions').then(
       (val) => {
         if(!val) {
-          storage.set('transactions', []);
+          this.storage.set('transactions', []);
         }
+        this.saldo = 0;
         for(let transaction of val) {
           this.saldo += +transaction.value;
         }
@@ -47,13 +60,21 @@ export class HomePage {
 
   /**
    * create a new transaction
+   * @param positive if amount is positive
    */
-  createTransaction(): void {
+  createTransaction(positive: boolean): void {
+    if (!positive) {
+      this.amount *= -1;
+    }
+
     const newTransaction = {
       description: this.description,
       time: new Date(),
       value: this.amount
     };
+
+    this.description = null;
+    this.amount = null;
 
     this.saldo += newTransaction.value;
 

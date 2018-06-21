@@ -13,6 +13,7 @@ export class HomePage {
   public saldo: number = 0;
   public transactions = [];
 
+  public currency: string = 'EUR';
   public description: string;
   public amount: number;
 
@@ -90,14 +91,6 @@ export class HomePage {
    */
   transform(event): void {
     this.amount = event.value * 1;
-  }
-
-  /**
-   * edit a transaction
-   * @param transaction the transaction to be edited
-   */
-  edit(transaction): void {
-    console.log('coming soon...');
   }
 
   /**

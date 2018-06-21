@@ -26,9 +26,6 @@
         <ion-note item-end>{{ transaction.value | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button icon-only (click)="edit(transaction)">
-              <ion-icon name="build"></ion-icon>
-          </button>
           <button ion-button icon-only color="danger" (click)="delete(transaction)">
             <ion-icon name="close-circle"></ion-icon>
           </button>
@@ -43,6 +40,16 @@
 
 <ion-footer padding>
   <ion-list>
+    <ion-item>
+      <ion-label>Currency</ion-label>
+      <ion-select [(ngModel)]="currency" multiple="false">
+        <ion-option value="EUR" selected="true">Euro</ion-option>
+        <ion-option value="USD">US-Dollar</ion-option>
+        <ion-option value="GBP">British Pound</ion-option>
+        <ion-option value="JPY">Yen</ion-option>
+        <ion-option value="CHF">Swiss Francs</ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label floating>Amount</ion-label>
       <ion-input type="number" name="amount" required [ngModel]="amount" (ionChange)="transform($event)"></ion-input>

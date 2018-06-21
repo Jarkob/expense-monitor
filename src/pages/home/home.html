@@ -1,24 +1,40 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Expense Monitor
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-
-
-  <p>Saldo: {{ saldo }}</p>
   <ion-list>
-    <button ion-item *ngFor="let transaction of transactions">
-      {{ transaction.value }} | {{ transaction.time }}
-    </button>
+    <ion-list-header>Transactions</ion-list-header>
+    <ion-item-sliding *ngFor="let transaction of transactions">
+      <ion-item>
+        <h2>{{ transaction.description }}</h2>
+        <p>{{ transaction.time | date:'short':'':'de' }}</p>
+        <ion-note item-end>{{ transaction.value | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
+      </ion-item>
+      <ion-item-options side="right">
+          <button ion-button (click)="edit(transaction)">Edit</button>
+          <button ion-button color="danger" (click)="delete(transaction)">Delete</button>
+        </ion-item-options>
+    </ion-item-sliding>
+    <ion-item>
+      <h2>Saldo</h2>
+      <ion-note item-end>{{ saldo | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Amount</ion-label>
+      <ion-input type="number" name="amount" required [ngModel]="amount" (ionChange)="transform($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-input type="text" name="description" required [(ngModel)]="description"></ion-input>
+    </ion-item>
   </ion-list>
   <button ion-button (click)="createTransaction()">New transaction</button>
-
 </ion-content>

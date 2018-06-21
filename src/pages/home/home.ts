@@ -11,19 +11,15 @@ export class HomePage {
   public saldo: number = 0;
   public transactions = [];
 
+  public description: string;
+  public amount: number;
+
   constructor(public navCtrl: NavController, private storage: Storage) {
-    storage.set('name', 'Jakob');
-
-    storage.get('name').then(
-      (val) => {
-        console.log('Your name is ', val);
-      }
-    );
-
-    storage.set('transactions', [{time: null, value: 0}]);
-
     storage.get('transactions').then(
       (val) => {
+        if(!val) {
+          storage.set('transactions', []);
+        }
         for(let transaction of val) {
           this.saldo += +transaction.value;
         }
@@ -36,14 +32,31 @@ export class HomePage {
   }
 
 
-  private createTransaction(): void {
-    this.saldo += 5.5;
-
-    this.transactions.push({
+  createTransaction(): void {
+    const newTransaction = {
+      description: this.description,
       time: new Date(),
-      value: 5.5
-    });
+      value: this.amount
+    };
 
+    this.saldo += newTransaction.value;
+
+    this.transactions.push(newTransaction);
+
+    this.storage.set('transactions', this.transactions);
+  }
+
+  transform(event): void {
+    this.amount = event.value * 1;
+  }
+
+  edit(transaction): void {
+    console.log('coming soon...');
+  }
+
+  delete(transaction): void {
+    this.saldo -= transaction.value;
+    this.transactions = this.transactions.filter(element => element !== transaction);
     this.storage.set('transactions', this.transactions);
   }
 }

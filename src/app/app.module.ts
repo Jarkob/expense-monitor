@@ -9,13 +9,15 @@ import localeDe from '@angular/common/locales/de';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { registerLocaleData } from '@angular/common';
+import { SettingsPage } from '../pages/settings/settings';
 
 registerLocaleData(localeDe, 'de');
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ registerLocaleData(localeDe, 'de');
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SettingsPage
   ],
   providers: [
     StatusBar,

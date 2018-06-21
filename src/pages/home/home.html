@@ -1,9 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Expense Monitor
-    </ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons> -->
+
+    <ion-title>Expense Monitor</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToSettings()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>

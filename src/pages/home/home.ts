@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { HTTP } from '@ionic-native/http';
 
 import { SettingsPage } from './../settings/settings';
+
+const FIXER_API_KEY = '1e7927b44bfbfe5480e1f751595f4f3e';
 
 @Component({
   selector: 'page-home',
@@ -22,13 +25,24 @@ export class HomePage {
    * @param navCtrl for navigation
    * @param storage for storing transactions
    */
-  constructor(public navCtrl: NavController, private storage: Storage) {
+  constructor(public navCtrl: NavController, private storage: Storage, private http: HTTP) {
     // works somehow
     this.navCtrl.viewDidEnter.subscribe(
       (val) => {
         this.getTransactions();
       }
     );
+
+    // debug
+    this.getExchangeRates();
+  }
+
+  getExchangeRates(): void {
+    console.log('key: ', FIXER_API_KEY);
+    this.http.get('http://data.fixer.io/api/latest?access_key=' + FIXER_API_KEY + '&symbols=USD,GBP,JPY,CHF', {}, {})
+      .then(data => {
+        console.log(data.data);
+      })
   }
 
   /**

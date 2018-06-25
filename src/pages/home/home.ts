@@ -16,6 +16,7 @@ export class HomePage {
   public saldo: number = 0;
   public transactions = [];
 
+  public exchangeRates: any[];
   public currency: string = 'EUR';
   public description: string;
   public amount: number;
@@ -33,15 +34,18 @@ export class HomePage {
       }
     );
 
-    // debug
     this.getExchangeRates();
   }
 
+  /**
+   * gets the exchange rates from the fixer api
+   */
   getExchangeRates(): void {
     console.log('key: ', FIXER_API_KEY);
     this.http.get('http://data.fixer.io/api/latest?access_key=' + FIXER_API_KEY + '&symbols=USD,GBP,JPY,CHF', {}, {})
       .then(data => {
         console.log(data.data);
+        this.exchangeRates = data.data.rates;
       })
   }
 
@@ -80,6 +84,14 @@ export class HomePage {
   createTransaction(positive: boolean): void {
     if (!positive) {
       this.amount *= -1;
+    }
+
+    console.log('debug: ', this.currency);
+
+    // adjust currency
+    if (this.currency !== 'EUR') {
+      console.log('adjusting to: ', this.exchangeRates[this.currency]);
+      this.amount /= this.exchangeRates[this.currency];
     }
 
     const newTransaction = {

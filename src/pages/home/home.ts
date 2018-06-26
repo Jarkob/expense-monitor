@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { HTTP } from '@ionic-native/http';
+// import { HTTP } from '@ionic-native/http';
+import { HttpClient } from '@angular/common/http';
 
 import { SettingsPage } from './../settings/settings';
 
@@ -26,7 +27,7 @@ export class HomePage {
    * @param navCtrl for navigation
    * @param storage for storing transactions
    */
-  constructor(public navCtrl: NavController, private storage: Storage, private http: HTTP) {
+  constructor(public navCtrl: NavController, private storage: Storage, private http: HttpClient) {
     // works somehow
     this.navCtrl.viewDidEnter.subscribe(
       (val) => {
@@ -42,10 +43,10 @@ export class HomePage {
    */
   getExchangeRates(): void {
     console.log('key: ', FIXER_API_KEY);
-    this.http.get('http://data.fixer.io/api/latest?access_key=' + FIXER_API_KEY + '&symbols=USD,GBP,JPY,CHF', {}, {})
-      .then(data => {
-        console.log(data.data);
-        this.exchangeRates = data.data.rates;
+    this.http.get<any>('http://data.fixer.io/api/latest?access_key=' + FIXER_API_KEY + '&symbols=USD,GBP,JPY,CHF,PHP')
+      .subscribe(data => {
+        console.log(data);
+        this.exchangeRates = data.rates;
       })
   }
 
@@ -87,6 +88,7 @@ export class HomePage {
     }
 
     console.log('debug: ', this.currency);
+    console.log('currencies: ', this.exchangeRates);
 
     // adjust currency
     if (this.currency !== 'EUR') {

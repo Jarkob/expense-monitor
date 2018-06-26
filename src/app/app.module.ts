@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { registerLocaleData } from '@angular/common';
 import { SettingsPage } from '../pages/settings/settings';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeDe, 'de');
 
@@ -22,6 +23,7 @@ registerLocaleData(localeDe, 'de');
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

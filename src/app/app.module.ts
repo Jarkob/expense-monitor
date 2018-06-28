@@ -6,12 +6,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import localeDe from '@angular/common/locales/de';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { registerLocaleData } from '@angular/common';
 import { SettingsPage } from '../pages/settings/settings';
-import { HttpClientModule } from '@angular/common/http';
+import { TransactionService } from './../services/transaction.service';
 
 registerLocaleData(localeDe, 'de');
 
@@ -37,6 +38,7 @@ registerLocaleData(localeDe, 'de');
     HTTP,
     StatusBar,
     SplashScreen,
+    TransactionService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: LOCALE_ID, useValue: 'de'}
   ]

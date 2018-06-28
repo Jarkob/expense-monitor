@@ -1,6 +1,6 @@
-import { Storage } from '@ionic/storage';
 import { Component } from "@angular/core";
 import { AlertController } from 'ionic-angular';
+import { TransactionService } from '../../services/transaction.service';
 
 @Component({
     selector: 'page-settings',
@@ -8,10 +8,10 @@ import { AlertController } from 'ionic-angular';
 })
 export class SettingsPage {
 
-    constructor(private alertController: AlertController, private storage: Storage) { }
+    constructor(private alertController: AlertController, private transactionService: TransactionService) { }
 
     private clear(): void {
-        this.storage.set('transactions', []);
+        this.transactionService.clear();
     }
 
     presentConfirm(): void {

@@ -1,12 +1,10 @@
-import { Transaction } from './../../models/transaction';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 
+import { Transaction } from './../../models/transaction';
+import { CurrencyService } from './../../services/currency.service';
 import { SettingsPage } from './../settings/settings';
 import { TransactionService } from '../../services/transaction.service';
-
-const FIXER_API_KEY = '1e7927b44bfbfe5480e1f751595f4f3e';
 
 @Component({
   selector: 'page-home',
@@ -17,7 +15,7 @@ export class HomePage {
   public saldo: number = 0;
   public transactions: Transaction[] = [];
 
-  public exchangeRates: any[];
+  public exchangeRates: any[] = [];
   public currency: string = 'EUR';
   public description: string;
   public amount: number;
@@ -29,8 +27,8 @@ export class HomePage {
    */
   constructor(
     public navCtrl: NavController,
-    private http: HttpClient,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private currencyService: CurrencyService
   ) {
     // works somehow
     this.navCtrl.viewDidEnter.subscribe(
@@ -46,10 +44,11 @@ export class HomePage {
    * gets the exchange rates from the fixer api
    */
   getExchangeRates(): void {
-    this.http.get<any>('http://data.fixer.io/api/latest?access_key=' + FIXER_API_KEY + '&symbols=USD,GBP,JPY,CHF,PHP')
-      .subscribe(data => {
+    this.currencyService.get().subscribe(
+      data => {
         this.exchangeRates = data.rates;
-      })
+      }
+    );
   }
 
   /**

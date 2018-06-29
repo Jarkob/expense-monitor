@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { registerLocaleData } from '@angular/common';
 import { SettingsPage } from '../pages/settings/settings';
 import { TransactionService } from './../services/transaction.service';
+import { CurrencyService } from './../services/currency.service';
 
 registerLocaleData(localeDe, 'de');
 
@@ -39,6 +40,7 @@ registerLocaleData(localeDe, 'de');
     StatusBar,
     SplashScreen,
     TransactionService,
+    CurrencyService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: LOCALE_ID, useValue: 'de'}
   ]

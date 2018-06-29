@@ -17,9 +17,13 @@
       <ion-item>
         <h2>{{ transaction.description }}</h2>
         <p>{{ transaction.time | date:'short':'':'de' }}</p>
-        <ion-note item-end>
-          {{ transaction.currency == 'EUR' ? '' : (transaction.value * exchangeRates[transaction.currency] | currency:transaction.currency:'symbol':'1.2-2') }}
-            {{ transaction.value | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
+        <ion-badge item-end [color]="transaction.value >= 0 ? 'secondary' : 'danger'" *ngIf="transaction.currency !== 'EUR'">
+          {{ transaction.value * exchangeRates[transaction.currency] | currency:transaction.currency:'symbol':'1.2-2' }}
+        </ion-badge>
+        <span item-end *ngIf="transaction.currency !== 'EUR'">=</span>
+        <ion-badge item-end [color]="transaction.value >= 0 ? 'secondary' : 'danger'">
+          {{ transaction.value | currency:'EUR':'symbol':'1.2-2' }}
+        </ion-badge>
       </ion-item>
       <ion-item-options side="right">
           <button ion-button icon-only color="danger" (click)="deleteTransaction(transaction)">
@@ -29,7 +33,7 @@
     </ion-item-sliding>
     <ion-item>
       <h2>Saldo</h2>
-      <ion-note item-end>{{ saldo | currency:'EUR':'symbol':'1.2-2' }}</ion-note>
+      <ion-badge item-end [color]="saldo >= 0 ? 'secondary' : 'danger'">{{ saldo | currency:'EUR':'symbol':'1.2-2' }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>

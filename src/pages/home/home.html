@@ -39,8 +39,8 @@
 </ion-content>
 
 <ion-footer padding>
-  <ion-list>
-    <ion-item>
+  <ion-row>
+    <ion-col col-6>
       <ion-label>Currency</ion-label>
       <ion-select [(ngModel)]="currency" multiple="false">
         <ion-option value="EUR" selected="true">Euro</ion-option>
@@ -50,17 +50,16 @@
         <ion-option value="CHF">Swiss Francs</ion-option>
         <ion-option value="PHP">Philippine Peso</ion-option>
       </ion-select>
-    </ion-item>
-    <ion-item>
+    </ion-col>
+    <ion-col col-6>
       <ion-label floating>Amount</ion-label>
       <ion-input type="number" name="amount" required [ngModel]="amount" (ionChange)="transform($event)"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Description</ion-label>
-      <ion-input type="text" name="description" required [(ngModel)]="description"></ion-input>
-    </ion-item>
-  </ion-list>
-
+    </ion-col>
+  </ion-row>
+  <div>
+    <ion-label floating>Description</ion-label>
+    <ion-input type="text" name="description" required [(ngModel)]="description"></ion-input>
+  </div>
   <button class="new-transaction" ion-button icon-only large (click)="createTransaction()">
     <ion-icon name="add-circle"></ion-icon>
   </button>

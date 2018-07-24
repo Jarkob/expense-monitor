@@ -10,10 +10,16 @@ export class SettingsPage {
 
     constructor(private alertController: AlertController, private transactionService: TransactionService) { }
 
+    /**
+     * removes all transactions from storage and clears account
+     */
     private clear(): void {
         this.transactionService.clear();
     }
 
+    /**
+     * shows a confirm dialog for deleting transactions
+     */
     presentConfirm(): void {
         let alert = this.alertController.create({
             title: 'Are you sure?',

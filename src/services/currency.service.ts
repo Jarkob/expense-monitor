@@ -10,6 +10,9 @@ export class CurrencyService {
 
     constructor(private http: HttpClient) { }
 
+    /**
+     * get currency exchange rates from fixer api
+     */
     public get(): Observable<any> {
         return this.http.get<any>(FIXER_API_URL);
     }

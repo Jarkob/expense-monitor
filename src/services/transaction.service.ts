@@ -7,10 +7,17 @@ export class TransactionService {
 
     constructor(private storage: Storage) { }
 
+    /**
+     * get transactions from storage
+     */
     public get(): Promise<Transaction[]> {
         return this.storage.get('transactions');
     }
 
+    /**
+     * create new transaction in storage
+     * @param transaction new transaction
+     */
     public create(transaction: Transaction): void {
         this.storage.get('transactions').then(
             (val) => {
@@ -20,6 +27,10 @@ export class TransactionService {
         )
     }
 
+    /**
+     * deletes transaction
+     * @param transaction transaction to delete
+     */
     public delete(transaction: Transaction): void {
         this.storage.get('transactions').then(
             (val) => {
@@ -29,6 +40,9 @@ export class TransactionService {
         )
     }
 
+    /**
+     * deletes all transactions
+     */
     public clear(): void {
         this.storage.set('transactions', []);
     }
